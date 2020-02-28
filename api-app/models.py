@@ -2,8 +2,8 @@
 
 from flask_sqlalchemy import SQLAlchemy
 
-DB = SQLAlchemy()
+db = SQLAlchemy()
 
-class Song(DB.Model):
+class Song(db.Model):
     pass
  
