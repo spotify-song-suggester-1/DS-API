@@ -34,6 +34,7 @@ def get_ten_tracks():
         #popularity.append(t['popularity'])
 
     df_tracks = pd.DataFrame({'artist_name':artist_name,'track_name':track_name,'track_id':track_id})
+    df_tracks['genre'] = 'placeholder'
 
     rows = []
     batchsize = 1
