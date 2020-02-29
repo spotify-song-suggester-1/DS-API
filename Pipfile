@@ -11,6 +11,9 @@ flask-sqlalchemy = "*"
 pandas = "*"
 requests = "*"
 numpy = "*"
+python-decouple = "*"
+spotipy = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.7"
