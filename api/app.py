@@ -50,7 +50,7 @@ def create_app():
 
         tuples = [item for item in ten_track_df.itertuples(index=False)]
 
-        labels = ['artist_name', 'track_name', 'track_id', 'danceability_diff', 'energy_diff',
+        labels = ['artist_name', 'track_name', 'track_id', 'genre', 'danceability_diff', 'energy_diff',
        'loudness_diff', 'mode', 'speechiness_diff', 'acousticness_diff', 'instrumentalness_diff',
        'liveness_diff', 'valence_diff', 'tempo_diff']
 
