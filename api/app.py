@@ -6,6 +6,8 @@ import pandas as pd
 from decouple import config
 
 from .dummy_functions import get_ten_tracks
+from .spotify_functions import get_base_song_vector
+from .prediction import make_genre_vector, get_genre, augment_song_vector
 
 def create_app():
     app = Flask(__name__)
@@ -13,6 +15,10 @@ def create_app():
 
 
     app.config['ENV'] = config('ENV')
+
+
+    # testing NN prediction here
+    print(augment_song_vector(get_base_song_vector('3AJwUDP919kvQ9QcozQPxg')))
 
 
     # three routes

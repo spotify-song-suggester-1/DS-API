@@ -1,3 +1,5 @@
+"""functions for generating fake formatted output, for a dummy API."""
+
 import spotipy
 import spotipy.util as util
 from spotipy.oauth2 import SpotifyClientCredentials
