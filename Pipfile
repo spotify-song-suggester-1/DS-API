@@ -13,6 +13,11 @@ python-decouple = "*"
 python-dotenv = "*"
 flask-sqlalchemy = "*"
 scikit-learn = "*"
+json5 = "*"
+spotipy = "*"
+flask-cors = "*"
+tensorflow = "*"
+joblib = "*"
 
 [requires]
 python_version = "3.7"
