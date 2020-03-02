@@ -1,26 +1,40 @@
-"""  Main application for Spotify Flask App """
-
-from flask import Flask, request
+from flask import Flask, request, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
+import sklearn
+from sklearn.neighbors import NearestNeighbors
 import pandas as pd
-import sqlite3
-
-app = Flask(__name__)
-
-#Create database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///spotify_tracks.sqlite3'
-DB = SQLAlchemy(app)
-spotify_tracks_tbl = db.Table('songs', db.metadata, autoload=True, autoload_with = db.engine)
-songs = db.session.query(spotify_tracks_tbl).all()
-
-#convert dataframe into db
-
-df = pd.read_csv('SpotifyData/SpotifyData.csv.zip')
-conn = sqlite3.connect('spotify_tracks.sqlite3')
-df.to_sql('songs',conn, if_exists='replace')
+import numpy as np
 
 
+df = pd.read_csv('https://github.com/spotify-song-suggester-1/DS-API/blob/master/sample_data.csv')
 
-@app.route('/')
-def home():
-    # return some basic template with render_template 
+def process_input(song_id, return_json=True):
+    c = ["duration_ms", "index", "genre","artist_name","track_name","track_id","key","mode"] #omitted columns
+    song = df[df["track_id"] == song_id].iloc[0] #get song
+    df_selected  =df.copy()
+    if not pd.isnull(song["genre"]): #if genre, set subset to only genre
+        df_selected = df[df["genre"] == song["genre"]]
+    nn = NearestNeighbors(n_neighbors = 11, algorithm="kd_tree") #nearest neighbor model
+    nn.fit(df_selected.drop(columns=c))
+    song = song.drop(index=c)
+    song = np.array(song).reshape(1,-1)
+    if return_json is False:
+        return df_selected.iloc[nn.kneighbors(song)[1][0][1:]]# return results as df
+    return df_selected.iloc[nn.kneighbors(song)[1][0][1:]].to_json(orient="records") #returns results as json
+
+    app = Flask(__name__)
+
+    @app.route('/song/<song_id>', methods=['GET'])
+    def song(song_id):
+        "Route for recommendations based on song selected."""
+        return process_input(song_id) #jsonified recommendations
+    
+    @app.route('/favorites', methods = ['GET','POST'])
+    def favorites():
+        my_dict  =request.get_json(force=True)
+        track_list = pd.DataFrame()
+        for i in my_dict.values():
+            track_list = track_list.append(process_input(i, False))
+        track_list.drop_duplicates()
+        return track_list.sample(10).to_json(oreint="records")
+

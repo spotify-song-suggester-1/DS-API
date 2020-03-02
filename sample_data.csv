@@ -1,4 +1,4 @@
-﻿,artist_name,track_name,track_id,popularity,year,genre,id,acousticness,danceability,duration_ms,energy,instrumentalness,key,liveness,loudness,mode,speechiness,tempo,time_signature,valence
+﻿index,artist_name,track_name,track_id,popularity,year,genre,id,acousticness,danceability,duration_ms,energy,instrumentalness,key,liveness,loudness,mode,speechiness,tempo,time_signature,valence
 67862,Black Sabbath,Wasp / Behind the Wall of Sleep / Bassically / N.I.B. - 2014 Remaster,6FNjzeebdhszRqFMxPJ5S6,19,2014,metal,111375,0.025,0.378,583800,0.467,3.61E-05,11,0.316,-11.781,0,0.0515,101.73,4,0.503
 130967,Jessie Reyez,"Figures, a Reprise",0qynxleiY0wavOijAW9trC,61,2018,pop,208037,0.667,0.506,192827,0.412,0,7,0.0983,-5.64,1,0.137,173.115,3,0.195
 117059,YFN Lucci,Heartless (feat. Rick Ross & Bigga Rankin),5Gx2SIkIWdSzdxnvfO3TJy,56,2017,rap,187733,0.0821,0.686,216002,0.72,0,8,0.414,-6.084,1,0.225,146.026,4,0.326
