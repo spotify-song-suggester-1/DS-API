@@ -12,6 +12,7 @@ pandas = "*"
 python-decouple = "*"
 python-dotenv = "*"
 flask-sqlalchemy = "*"
+scikit-learn = "*"
 
 [requires]
 python_version = "3.7"
