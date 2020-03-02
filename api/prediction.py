@@ -6,7 +6,7 @@ import joblib
 
 from .spotify_functions import get_base_song_vector
 
-genre_inference_features = ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms', 'time_signature' ]
+genre_inference_features = ['acousticness', 'danceability', 'duration_ms', 'energy', 'instrumentalness', 'key','liveness', 'loudness', 'mode', 'speechiness', 'tempo', 'time_signature', 'valence']
 genre_list = ['alternative', 'country', 'dance', 'folk', 'grunge', 'indie', 'jazz', 'metal', 'pop', 'punk', 'rap', 'rock']
 genre_onehot_labels = ['genre_' + x for x in genre_list]
 
@@ -30,9 +30,10 @@ def get_genre(genre_vector):
     """takes a genre vector and returns the appropriate genre as a string."""
     vector_list = genre_vector.tolist()[0]
 
-    genre = [genre_list[vector_list.index(x)] for x in vector_list if x != 0]
+    best3_tuples =  sorted(zip(vector_list, genre_list), reverse=True)[:3]
+    best3_genres = [x[1] for x in best3_tuples]
 
-    return genre[0]
+    return best3_genres
 
 
 def augment_song_vector(song_vector):

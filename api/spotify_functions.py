@@ -43,6 +43,11 @@ def get_base_song_vector(song_id):
     # to pandas series
     feature_series = pd.Series(feature_response[0])
 
+    # reorder the series columns alphabetically
+    cols = feature_series.axes[0]
+    cols = sorted(cols)
+    feature_series = feature_series[cols]
+
     """ # rename the id column
     feature_series.rename(index={'id': 'track_id'}, inplace=True)
 
@@ -56,6 +61,5 @@ def get_base_song_vector(song_id):
     songseries = pd.concat([non_feature_series, feature_series])
 
     return songseries
-
 
 

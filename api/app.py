@@ -15,10 +15,18 @@ def create_app():
 
 
     app.config['ENV'] = config('ENV')
+    
 
+    @app.route('/testpath/<track_id>')
+    def testpath(track_id):
+        """Using this to test prediction functions."""
+        vec = augment_song_vector(get_base_song_vector(track_id))
 
-    # testing NN prediction here
-    print(augment_song_vector(get_base_song_vector('3AJwUDP919kvQ9QcozQPxg')))
+        labels = list(vec.index)
+        values = list(vec.values)
+
+        output = dict(zip(labels,values))
+        return output
 
 
     # three routes
