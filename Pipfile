@@ -7,19 +7,11 @@ verify_ssl = true
 
 [packages]
 flask = "*"
-flask-sqlalchemy = "*"
-pandas = "*"
-requests = "*"
 numpy = "*"
-spotipy = "*"
+pandas = "*"
 python-decouple = "*"
 python-dotenv = "*"
-basilica = "*"
-scikit-learn = "*"
-jinja2 = "*"
-redis = "*"
-psycopg2 = "*"
-gunicorn = "*"
+flask-sqlalchemy = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,4 +1,4 @@
-""" Entry Point for Our Flask App """
+""" Entry Point for Our Twitoff Flask App """
 
 from .app import create_app
 
