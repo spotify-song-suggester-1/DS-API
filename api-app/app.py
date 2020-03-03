@@ -10,6 +10,7 @@ from os import getenv
 from .dummy_functions import get_ten_tracks
 from .spotify_functions import get_base_song_vector
 from .prediction import make_genre_vector, get_genre, augment_song_vector
+from .pickle import Recommendations
 
 import json
 import pandas as pd
@@ -22,7 +23,7 @@ DB = SQLAlchemy()
 # Make app factory
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///spotify_tracks.sqlite3'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///spotify_tracks.sqlite3'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     CORS(app)
 
