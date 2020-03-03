@@ -17,7 +17,7 @@ credentials = oauth2.SpotifyClientCredentials(
         client_secret=SPOTIFY_CLIENT_SECRET)
 
 
-spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+spotify = spotipy.Spotify(client_credentials_manager=credentials)
 
 def get_base_song_vector(song_id):
     """takes a spotify track id, and returns the song as an array with the base features supplied by spotify."""
