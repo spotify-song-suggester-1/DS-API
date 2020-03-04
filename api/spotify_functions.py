@@ -19,6 +19,24 @@ credentials = oauth2.SpotifyClientCredentials(
 
 spotify = spotipy.Spotify(client_credentials_manager=credentials)
 
+def query_spotify(querystring):
+        """searches spotify for a given query. returns results."""
+
+        # get results for a query
+        track_results = spotify.search(f'{querystring}', type='track', limit=10, offset=0, market='US')
+        
+        # list of tracks to serve
+        to_serve = []
+
+        # convert each song into a dict
+        for item in track_results['tracks']['items']:
+                songdict = {'track_id': item['id'], 'track_name': item['name'], 'artist_name': item['artists'][0]['name']}
+                to_serve.append(songdict)
+
+        return to_serve
+
+
+
 def get_base_song_vector(song_id):
     """takes a spotify track id, and returns the song as an array with the base features supplied by spotify."""
     # empty dict, will be dataframed
@@ -62,4 +80,4 @@ def get_base_song_vector(song_id):
 
     return songseries
 
-
+print(query_spotify('coldplay yellow'))

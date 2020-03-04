@@ -6,7 +6,7 @@ import pandas as pd
 from decouple import config
 
 from .dummy_functions import get_ten_tracks
-from .spotify_functions import get_base_song_vector
+from .spotify_functions import get_base_song_vector, query_spotify
 from .prediction import make_genre_vector, get_genre, augment_song_vector
 
 def create_app():
@@ -15,10 +15,16 @@ def create_app():
 
 
     app.config['ENV'] = config('ENV')
+
+    @app.route('/query/<query_string>')
+    def query(query_string):
+        res = query_spotify(query_string)
+
+        return jsonify(res)
     
 
-    @app.route('/testpath/<track_id>')
-    def testpath(track_id):
+    @app.route('/recommendations/<track_id>')
+    def recommendations(track_id):
         """Using this to test prediction functions."""
         vec = augment_song_vector(get_base_song_vector(track_id))
 
@@ -26,7 +32,7 @@ def create_app():
         values = list(vec.values)
 
         output = dict(zip(labels,values))
-        return jsonify(output)
+        return jsonify([output]*10)
 
 
     # three routes
