@@ -26,7 +26,7 @@ def create_app():
         values = list(vec.values)
 
         output = dict(zip(labels,values))
-        return json.dumps(output)
+        return jsonify(output)
 
 
     # three routes
