@@ -38,7 +38,7 @@ def query_spotify(querystring):
 
 def get_album_art(track_id):
         """finds the album art url for a given track."""
-        track_result = sp.track(track_id)
+        track_result = spotify.track(track_id)
         imageurl = track_result['album']['images'][1]['url']
 
         return imageurl
