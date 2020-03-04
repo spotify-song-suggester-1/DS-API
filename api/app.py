@@ -5,8 +5,10 @@ import pandas as pd
 
 from decouple import config
 
+import urllib
+
 from .dummy_functions import get_ten_tracks
-from .spotify_functions import get_base_song_vector, query_spotify
+from .spotify_functions import get_base_song_vector, query_spotify, get_album_art
 from .prediction import make_genre_vector, get_genre, augment_song_vector
 
 def create_app():
@@ -18,13 +20,13 @@ def create_app():
 
     @app.route('/query/<query_string>')
     def query(query_string):
-        res = query_spotify(query_string)
+        res = query_spotify(urllib.parse.unquote(query_string))
 
         return jsonify(res)
     
 
-    @app.route('/recommendations/<track_id>')
-    def recommendations(track_id):
+    @app.route('/recommend/<track_id>')
+    def recommend(track_id):
         """Using this to test prediction functions."""
         vec = augment_song_vector(get_base_song_vector(track_id))
 
@@ -32,6 +34,8 @@ def create_app():
         values = list(vec.values)
 
         output = dict(zip(labels,values))
+        output['album_art'] = get_album_art(track_id)
+
         return jsonify([output]*10)
 
 

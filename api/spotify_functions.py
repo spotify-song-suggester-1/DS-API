@@ -30,10 +30,18 @@ def query_spotify(querystring):
 
         # convert each song into a dict
         for item in track_results['tracks']['items']:
-                songdict = {'track_id': item['id'], 'track_name': item['name'], 'artist_name': item['artists'][0]['name']}
+                songdict = {'track_id': item['id'], 'track_name': item['name'], 
+                            'artist_name': item['artists'][0]['name'], 'album_art': item['album']['images'][1]['url']}
                 to_serve.append(songdict)
 
         return to_serve
+
+def get_album_art(track_id):
+        """finds the album art url for a given track."""
+        track_result = sp.track(track_id)
+        imageurl = track_result['album']['images'][1]['url']
+
+        return imageurl
 
 
 
