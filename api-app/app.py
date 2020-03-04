@@ -1,7 +1,6 @@
 """  Main application for Spotify Flask App """
 
 from decouple import config
-from dotenv import load_dotenv
 from flask import Flask, render_template, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -10,6 +9,7 @@ from os import getenv
 from .dummy_functions import get_ten_tracks
 from .spotify_functions import get_base_song_vector
 from .prediction import make_genre_vector, get_genre, augment_song_vector
+from .pickle import Recommendations
 
 import json
 import pandas as pd
@@ -22,9 +22,8 @@ DB = SQLAlchemy()
 # Make app factory
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///spotify_tracks.sqlite3'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///spotify_tracks.sqlite3'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['ENV'] = config('ENV')
     CORS(app)
 
     # DB.init_app(app)
