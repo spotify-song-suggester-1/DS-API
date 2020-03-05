@@ -30,10 +30,10 @@ def get_genre(genre_vector):
     """takes a genre vector and returns the appropriate genre as a string."""
     vector_list = genre_vector.tolist()[0]
 
-    best3_tuples =  sorted(zip(vector_list, genre_list), reverse=True)[:3]
-    best3_genres = [x[1] for x in best3_tuples]
+    best_tuple =  sorted(zip(vector_list, genre_list), reverse=True)[0]
+    best_genre = best_tuple[1]
 
-    return best3_genres
+    return best_genre
 
 
 def augment_song_vector(song_vector):
@@ -44,10 +44,5 @@ def augment_song_vector(song_vector):
 
     song_vector_output['genre'] = get_genre(genre_vector)
 
-    genre_dict = dict(zip(genre_onehot_labels,genre_vector.tolist()[0]))
-
-    genre_series = pd.Series(genre_dict)
-
-    song_vector_output = pd.concat([song_vector_output, genre_series])
 
     return song_vector_output

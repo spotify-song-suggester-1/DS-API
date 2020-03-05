@@ -87,5 +87,3 @@ def get_base_song_vector(song_id):
     songseries = pd.concat([non_feature_series, feature_series])
 
     return songseries
-
-print(query_spotify('coldplay yellow'))
