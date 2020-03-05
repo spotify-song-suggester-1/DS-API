@@ -10,8 +10,9 @@ genre_inference_features = ['acousticness', 'danceability', 'duration_ms', 'ener
 genre_list = ['alternative', 'country', 'dance', 'folk', 'grunge', 'indie', 'jazz', 'metal', 'pop', 'punk', 'rap', 'rock']
 genre_onehot_labels = ['genre_' + x for x in genre_list]
 
-genre_NN = tf.keras.models.load_model('genre_NN')
-scaler = joblib.load('genre_NN_scaler')
+genre_NN = tf.keras.models.load_model('../genre_NN')
+genre_NN._make_predict_function()
+scaler = joblib.load('../genre_NN_scaler')
 
 
 def make_genre_vector(song_vector):
@@ -42,10 +43,10 @@ def augment_song_vector(song_vector):
 
     song_vector_output['genre'] = get_genre(genre_vector)
 
-    #genre_dict = dict(zip(genre_onehot_labels,genre_vector.tolist()[0]))
+    genre_dict = dict(zip(genre_onehot_labels,genre_vector.tolist()[0]))
 
-    #genre_series = pd.Series(genre_dict)
+    genre_series = pd.Series(genre_dict)
 
-    #song_vector_output = pd.concat([song_vector_output, genre_series])
+    song_vector_output = pd.concat([song_vector_output, genre_series])
 
     return song_vector_output

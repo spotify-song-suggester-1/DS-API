@@ -22,6 +22,7 @@ class Recommendations:
         
         '''
         #Reshape song's attributes to list
+        track_array = track_array[5:].drop(labels='genre', axis=0)
         song = track_array.to_numpy().reshape(1, -1)
         neighbors = self.model.kneighbors(song)
         #Return the 5th to 20th
