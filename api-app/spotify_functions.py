@@ -80,4 +80,4 @@ def get_album_art(track_id):
         imageurl = track_result['album']['images'][1]['url']
         return imageurl
 
-    return songseries
+        return songseries
