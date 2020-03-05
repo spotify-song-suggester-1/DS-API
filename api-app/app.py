@@ -1,7 +1,7 @@
 """  Main application for Spotify Flask App """
 
 from decouple import config
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 from flask import Flask, render_template, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -33,7 +33,7 @@ def create_app():
 
     @app.route("/")
     def root():
-        return render_template('base.html', title='Home')
+        return render_teherokmplate('base.html', title='Home')
 
     @app.route('/testpath/<track_id>')
     def testpath(track_id):
