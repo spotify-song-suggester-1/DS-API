@@ -8,13 +8,13 @@ from flask_cors import CORS
 from os import getenv
 
 from .dummy_functions import get_ten_tracks
-from .spotify_functions import get_base_song_vector
+from .spotify_functions import get_base_song_vector, query_spotify, get_album_art
 from .prediction import make_genre_vector, get_genre, augment_song_vector
 
 import json
 import pandas as pd
 import numpy as np
-
+import urllib
 
 
 DB = SQLAlchemy()
@@ -33,7 +33,7 @@ def create_app():
 
     @app.route("/")
     def root():
-        return render_teherokmplate('base.html', title='Home')
+        return render_template('base.html', title='Home')
 
     @app.route('/testpath/<track_id>')
     def testpath(track_id):

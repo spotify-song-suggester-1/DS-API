@@ -61,6 +61,8 @@ def get_base_song_vector(song_id):
     # merge the data
     songseries = pd.concat([non_feature_series, feature_series])
 
+    return songseries
+
 def query_spotify(querystring):
         """searches spotify for a given query. returns results."""
         # get results for a query
@@ -80,4 +82,4 @@ def get_album_art(track_id):
         imageurl = track_result['album']['images'][1]['url']
         return imageurl
 
-    return songseries
+        return songseries
