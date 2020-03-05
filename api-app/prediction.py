@@ -42,10 +42,10 @@ def augment_song_vector(song_vector):
 
     song_vector_output['genre'] = get_genre(genre_vector)
 
-    genre_dict = dict(zip(genre_onehot_labels,genre_vector.tolist()[0]))
+    #genre_dict = dict(zip(genre_onehot_labels,genre_vector.tolist()[0]))
 
-    genre_series = pd.Series(genre_dict)
+    #genre_series = pd.Series(genre_dict)
 
-    song_vector_output = pd.concat([song_vector_output, genre_series])
+    #song_vector_output = pd.concat([song_vector_output, genre_series])
 
     return song_vector_output
