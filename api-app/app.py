@@ -22,7 +22,7 @@ DB = SQLAlchemy()
 # Make app factory
 def create_app():
     app = Flask(__name__)
-    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///spotify_tracks.sqlite3'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'DATABASE_URL'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     CORS(app)
 
