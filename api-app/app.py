@@ -10,7 +10,7 @@ from os import getenv
 from .dummy_functions import get_ten_tracks
 from .spotify_functions import get_base_song_vector
 from .prediction import make_genre_vector, get_genre, augment_song_vector
-from .pickle import Recommendations
+from .recommend import Recommendations
 
 import json
 import pandas as pd
@@ -52,8 +52,8 @@ def create_app():
     # I'm thinking this can be used for favorites as well, if "favorites" just ends up being a set of
     # track ids?
 
-    @app.route('/by_track_id', methods=['POST'])
-    def by_track_id():
+    @app.route('/by_track_id/<track_id>')
+    def by_track_id(track_id):
         """takes a set of track ids (including a set of one!), returns ten recommendations."""
 
         #content = request.get_json(force=True)
@@ -68,11 +68,11 @@ def create_app():
 
         tupledicts = [dict(zip(labels,tuple)) for tuple in tuples]
 
-        return json.dumps(tupledicts)
+        return jsonify(tupledicts)
 
         # /by_custom_input : takes a feature vector, returns ten recommendations
-    @app.route('/by_custom_input', methods=['POST'])
-    def by_custom_input():
+    @app.route('/by_custom_input/<track_id>')
+    def by_custom_input(track_id):
         """takes a set of track ids (including a set of one!), returns ten recommendations."""
 
         #content = request.get_json(force=True)
@@ -87,5 +87,5 @@ def create_app():
 
         tupledicts = [dict(zip(labels,tuple)) for tuple in tuples]
 
-        return json.dumps(tupledicts)
+        return jsonify(tupledicts)
     return app

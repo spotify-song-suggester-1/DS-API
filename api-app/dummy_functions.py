@@ -19,7 +19,7 @@ credentials = oauth2.SpotifyClientCredentials(
 token = credentials.get_access_token()
 spotify = spotipy.Spotify(auth=token)
 
-def get_ten_tracks():
+def get_ten_tracks(query):
     """gets ten tracks from the spotify API, in the format they'll be served to WEB."""
 
     artist_name = []
@@ -27,13 +27,13 @@ def get_ten_tracks():
     #popularity = []
     track_id = []
 
-    track_results = spotify.search(q='year:2018 AND tag:hipster', limit=10, offset=0, market='US')
+    track_results = spotify.search(q=f'{query}', limit=1, offset=0, market='US', type='track')
 
     for i, t in enumerate(track_results['tracks']['items']):
         artist_name.append(t['artists'][0]['name'])
         track_name.append(t['name'])
         track_id.append(t['id'])
-        #popularity.append(t['popularity'])
+        #TODO add album cover
 
     df_tracks = pd.DataFrame({'artist_name':artist_name,'track_name':track_name,'track_id':track_id})
     df_tracks['genre'] = 'placeholder'
