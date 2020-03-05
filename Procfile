@@ -1,2 +1,1 @@
-web: gunicorn spotify-app-bw:APP -t 120
-
+web: gunicorn api-app:APP -t 120
