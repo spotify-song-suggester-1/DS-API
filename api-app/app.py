@@ -33,7 +33,7 @@ def create_app():
 
     @app.route("/")
     def root():
-        return render_teherokmplate('base.html', title='Home')
+        return render_template('base.html', title='Home')
 
     @app.route('/testpath/<track_id>')
     def testpath(track_id):
