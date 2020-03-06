@@ -3,7 +3,7 @@
 from decouple import config
 #from dotenv import load_dotenv
 from flask import Flask, render_template, jsonify, request
-from flask_sqlalchemy import SQLAlchemy
+#from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import numpy as np
 import pandas as pd
@@ -18,15 +18,15 @@ import urllib
 from os import getenv
 
 
-DB = SQLAlchemy()
+#DB = SQLAlchemy()
 # Make app factory
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///spotify_tracks.sqlite3'
+    #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///spotify_tracks.sqlite3'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['ENV'] = config('ENV')
-    rec = Recommendations()
-    rec.connect(psycopg2.connect(config('ELEPHANTSQL_DATABASE_URI')))
+    rec_engine = Recommendations()
+    
     CORS(app)
 
     # DB.init_app(app)
@@ -82,9 +82,10 @@ def create_app():
     @app.route('/recommend/<track_id>')
     def recommend(track_id):
         """Using this to test prediction functions."""
+        rec_engine.connect(psycopg2.connect(config('ELEPHANTSQL_DATABASE_URI')))
         vector = get_base_song_vector(track_id)
         augmented = augment_song_vector(vector)
-        recommendations = rec.recommend(augmented)
+        recommendations = rec_engine.recommend(augmented)
         for rec in recommendations:
             rec['album_art'] = get_album_art(rec['track_id'])
         return jsonify(recommendations)

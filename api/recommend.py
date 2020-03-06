@@ -26,7 +26,7 @@ class Recommendations:
         song = track_array.to_numpy().reshape(1, -1)
         neighbors = self.model.kneighbors(song)
         #Return the 5th to 20th
-        new_obs = neighbors[1][0][0:9]
+        new_obs = neighbors[1][0][0:15]
         #Query list of recommended songs and their attributes
         query = f'''
         SELECT * FROM "SpotifyTracks"
