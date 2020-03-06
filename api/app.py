@@ -82,12 +82,35 @@ def create_app():
     @app.route('/recommend/<track_id>')
     def recommend(track_id):
         """Using this to test prediction functions."""
+        # connect to the database
         rec_engine.connect(psycopg2.connect(config('ELEPHANTSQL_DATABASE_URI')))
+
+        # get the base song vector for the track to be recommended
         vector = get_base_song_vector(track_id)
+
+        # make dict out of base vector
+        labels = list(vector.index)
+        values = list(vector.values)
+        
+        original_dict = dict(zip(labels,values))
+
+        # features to find difference for
+        feature_list = ['acousticness', 'danceability', 'duration_ms', 'energy',
+                        'instrumentalness', 'key', 'liveness', 'loudness', 'mode',
+                        'speechiness', 'tempo', 'time_signature', 'valence']
+
         augmented = augment_song_vector(vector)
+
+        # get recommendations
         recommendations = rec_engine.recommend(augmented)
         for rec in recommendations:
+            # add the difference values
+            for feature in feature_list:
+                rec[feature+'_diff'] = rec[feature] - original_dict[feature]
+            
+            # add album art
             rec['album_art'] = get_album_art(rec['track_id'])
+
         return jsonify(recommendations)
 
     return app
