@@ -18,8 +18,8 @@ credentials = oauth2.SpotifyClientCredentials(
         client_id=SPOTIFY_CLIENT_ID,
         client_secret=SPOTIFY_CLIENT_SECRET)
 
-token = credentials.get_access_token()
-spotify = spotipy.Spotify(auth=token)
+#refreshes token.
+spotify = spotipy.Spotify(client_credentials_manager=credentials)
 
 def get_base_song_vector(song_id):
     """takes a spotify track id, and returns the song as an array with the base features supplied by spotify."""
